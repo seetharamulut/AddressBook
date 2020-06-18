@@ -9,6 +9,8 @@ public class AddressBookController {
 
     Scanner Sc = new Scanner(System.in);
     LinkedList<Person> personList = new LinkedList<Person>();
+    HashMap<String,Person> cityMap = new HashMap<>();
+    HashMap<String,Person> stateMap = new HashMap<>();
 
     public Person getPerson() {
         System.out.println("enter first name");
@@ -31,7 +33,6 @@ public class AddressBookController {
             }
         }
         return false;
-
     }
 
     public void addPerson() {
@@ -61,6 +62,8 @@ public class AddressBookController {
         if ( duplicate == false)
         {
             personList.add(person);
+            cityMap.put(person.getCity(),person);
+            stateMap.put(person.getState(),person);
             System.out.println("added person successfully");
         }
         else{
@@ -118,10 +121,15 @@ public class AddressBookController {
         this.personList.sort(Comparator.comparing(Person:: getZip));
     }
 
-    public void printAddressbook(){
-        for (Person person : this.personList) {
-            System.out.println(""+person.getFirstName());
+    public void viewByCity(){
+        System.out.println("enter city name");
+        String city=Sc.next();
+        System.out.println(cityMap.get(city));
         }
+    public void viewByState(){
+        System.out.println("enter state name");
+        String state=Sc.next();
+        System.out.println(stateMap.get(state));
 
     }
 }
