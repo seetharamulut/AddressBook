@@ -106,6 +106,18 @@ public class AddressBookController {
         this.personList.sort(Comparator.comparing(Person:: getFirstName));
     }
 
+    public void sortByCity(){
+        this.personList.sort(Comparator.comparing(Person:: getCity));
+    }
+
+    public void sortByState(){
+        this.personList.sort(Comparator.comparing(Person:: getState));
+    }
+
+    public void sortByZip(){
+        this.personList.sort(Comparator.comparing(Person:: getZip));
+    }
+
     public void printAddressbook(){
         for (Person person : this.personList) {
             System.out.println(""+person.getFirstName());
