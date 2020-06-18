@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Scanner;
 
 public class AddressBookController {
-    Person person = new Person();
 
     Scanner Sc = new Scanner(System.in);
     LinkedList<Person> personList = new LinkedList<Person>();
@@ -27,7 +26,7 @@ public class AddressBookController {
     }
 
     public void addPerson() {
-
+        Person person = new Person();
         System.out.println("enter first name");
         person.setFirstName(Sc.next());
 
@@ -85,4 +84,5 @@ public class AddressBookController {
                 else
                     System.out.println("invalid details");
     }
+
 }
