@@ -55,18 +55,34 @@ public class AddressBookController {
 
     public void editPerson() {
 
-        Person persontoedit = this.getPerson();
-        if (persontoedit != null) {
+        Person personToedit = this.getPerson();
+        if (personToedit != null) {
             System.out.println("enter address");
-            persontoedit.setAddress(Sc.next());
+            personToedit.setAddress(Sc.next());
             System.out.println("enter city");
-            persontoedit.setCity(Sc.next());
+            personToedit.setCity(Sc.next());
             System.out.println("enter state");
-            persontoedit.setState(Sc.next());
+            personToedit.setState(Sc.next());
             System.out.println("enter zip code");
-            persontoedit.setZip(Sc.next());
+            personToedit.setZip(Sc.next());
             System.out.println("enter phone number");
-            persontoedit.setPhoneNumber(Sc.next());
+
+            personToedit.setPhoneNumber(Sc.next());
+            System.out.println("details updated");
         }
+        else{
+            System.out.println("no details found");
+        }
+    }
+
+    public void deletePerson(){
+        Person personToDelete=this.getPerson();
+                if(personToDelete != null)
+                {
+                    this.personList.remove(personToDelete);
+                    System.out.println("deleted successfully");
+                }
+                else
+                    System.out.println("invalid details");
     }
 }

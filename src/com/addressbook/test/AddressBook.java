@@ -17,7 +17,8 @@ public class AddressBook {
             System.out.println("Choose what to do");
             System.out.println("1) add a person");
             System.out.println("2) edit person");
-            System.out.println("3) exit");
+            System.out.println("3) delete a person");
+            System.out.println("4) exit");
             int choice = Sc.nextInt();
             switch (choice) {
                 case 1:
@@ -26,7 +27,9 @@ public class AddressBook {
                 case 2:
                     addressBookController.editPerson();
                     break;
-                    case 3: return ;
+                    case 3: addressBookController.deletePerson();
+                            break;
+                    case 4: return ;
             }
         }
 
