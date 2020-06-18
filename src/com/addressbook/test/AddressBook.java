@@ -19,8 +19,11 @@ public class AddressBook {
             System.out.println("2) edit person");
             System.out.println("3) delete a person");
             System.out.println("4) sort by name");
-            System.out.println("5) print names in address book");
-            System.out.println("6) exit");
+            System.out.println("5) sort by city");
+            System.out.println("6) sort by state");
+            System.out.println("7) sort by zipcode");
+            System.out.println("8) print names in address book");
+            System.out.println("9) exit");
             int choice = Sc.nextInt();
             switch (choice) {
                 case 1:
@@ -32,9 +35,15 @@ public class AddressBook {
                         break;
                 case 4: addressBookController.sortByName();
                         break;
-                case 5: addressBookController.printAddressbook();
+                case 5: addressBookController.sortByCity();
                         break;
-                case 6: return;
+                case 6: addressBookController.sortByState();
+                        break;
+                case 7: addressBookController.sortByZip();
+                        break;
+                case 8: addressBookController.printAddressbook();
+                        break;
+                case 9: return;
             }
         }
 
