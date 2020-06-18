@@ -1,10 +1,9 @@
 package com.addressbook.controller;
 import com.addressbook.model.*;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Scanner;
+import javax.naming.ldap.SortKey;
+import javax.swing.*;
+import java.util.*;
 
 public class AddressBookController {
 
@@ -103,4 +102,14 @@ public class AddressBookController {
                     System.out.println("invalid details");
     }
 
+    public void sortByName(){
+        this.personList.sort(Comparator.comparing(Person:: getFirstName));
+    }
+
+    public void printAddressbook(){
+        for (Person person : this.personList) {
+            System.out.println(""+person.getFirstName());
+        }
+
+    }
 }
