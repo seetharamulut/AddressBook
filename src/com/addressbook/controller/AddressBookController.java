@@ -25,6 +25,16 @@ public class AddressBookController {
         return null;
     }
 
+    public boolean getPerson(String firstName, String lastName) {
+        for (Person person : this.personList) {
+            if (firstName.equalsIgnoreCase(person.getFirstName()) && lastName.equalsIgnoreCase(person.getLastName())) {
+                return true;
+            }
+        }
+        return false;
+
+    }
+
     public void addPerson() {
         Person person = new Person();
         System.out.println("enter first name");
@@ -48,8 +58,16 @@ public class AddressBookController {
         System.out.println("enter phone number");
         person.setPhoneNumber(Sc.next());
 
-        System.out.println("added person successfully");
-        personList.add(person);
+        boolean duplicate=this.getPerson(person.getFirstName(),person.getLastName());
+        if ( duplicate == false)
+        {
+            personList.add(person);
+            System.out.println("added person successfully");
+        }
+        else{
+            System.out.println("details all ready exist");
+        }
+
     }
 
     public void editPerson() {
