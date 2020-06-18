@@ -22,14 +22,13 @@ public class AddressBook {
             int choice = Sc.nextInt();
             switch (choice) {
                 case 1:
-                    addressBookController.addPerson();
-                    break;
-                case 2:
-                    addressBookController.editPerson();
-                    break;
-                    case 3: addressBookController.deletePerson();
-                            break;
-                    case 4: return ;
+                        addressBookController.addPerson();
+                        break;
+                case 2: addressBookController.editPerson();
+                        break;
+                case 3: addressBookController.deletePerson();
+                        break;
+                case 4: return ;
             }
         }
 
