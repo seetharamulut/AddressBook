@@ -1,22 +1,20 @@
 package com.addressbook.controller;
 import com.addressbook.model.*;
 
-import javax.naming.ldap.SortKey;
-import javax.swing.*;
 import java.util.*;
 
 public class AddressBookController {
 
-    Scanner Sc = new Scanner(System.in);
+    Scanner scan = new Scanner(System.in);
     LinkedList<Person> personList = new LinkedList<Person>();
-    HashMap<String,Person> cityMap = new HashMap<>();
-    HashMap<String,Person> stateMap = new HashMap<>();
+    HashMap<String,String > cityMap = new HashMap<>();
+    HashMap<String,String> stateMap = new HashMap<>();
 
-    public Person getPerson() {
+    public Person getPersonDetails() {
         System.out.println("enter first name");
-        String firstName = Sc.next();
+        String firstName = scan.next();
         System.out.println("enter last name");
-        String lastName = Sc.next();
+        String lastName = scan.next();
 
         for (Person person : this.personList) {
             if (firstName.equalsIgnoreCase(person.getFirstName()) && lastName.equalsIgnoreCase(person.getLastName())) {
@@ -26,67 +24,57 @@ public class AddressBookController {
         return null;
     }
 
-    public boolean getPerson(String firstName, String lastName) {
+    public boolean checkPerson(String phoneNumber) {
         for (Person person : this.personList) {
-            if (firstName.equalsIgnoreCase(person.getFirstName()) && lastName.equalsIgnoreCase(person.getLastName())) {
+            if (phoneNumber.equalsIgnoreCase(person.getPhoneNumber())) {
                 return true;
             }
         }
         return false;
     }
 
+    public void addressDetails(Person person){
+        System.out.println("enter address");
+        person.setAddress(scan.next());
+
+        System.out.println("enter city");
+        person.setCity(scan.next());
+
+        System.out.println("enter state");
+        person.setState(scan.next());
+
+        System.out.println("enter zipcode");
+        person.setZip(scan.next());
+
+        System.out.println("enter phone number");
+        person.setPhoneNumber(scan.next());
+    }
+
     public void addPerson() {
         Person person = new Person();
         System.out.println("enter first name");
-        person.setFirstName(Sc.next());
-
+        person.setFirstName(scan.next());
         System.out.println("enter last name");
-        person.setLastName(Sc.next());
-
-        System.out.println("enter address");
-        person.setAddress(Sc.next());
-
-        System.out.println("enter city");
-        person.setCity(Sc.next());
-
-        System.out.println("enter state");
-        person.setState(Sc.next());
-
-        System.out.println("enter zipcode");
-        person.setZip(Sc.next());
-
-        System.out.println("enter phone number");
-        person.setPhoneNumber(Sc.next());
-
-        boolean duplicate=this.getPerson(person.getFirstName(),person.getLastName());
+        person.setLastName(scan.next());
+        addressDetails(person);
+        boolean duplicate=this.checkPerson(person.getPhoneNumber());
         if ( duplicate == false)
         {
             personList.add(person);
-            cityMap.put(person.getCity(),person);
-            stateMap.put(person.getState(),person);
+            cityMap.put(person.getCity(),person.getFirstName());
+            stateMap.put(person.getState(),person.getFirstName());
             System.out.println("added person successfully");
         }
         else{
             System.out.println("details all ready exist");
         }
-
     }
 
     public void editPerson() {
-
-        Person personToedit = this.getPerson();
+        Person personToedit = this.getPersonDetails();
         if (personToedit != null) {
-            System.out.println("enter address");
-            personToedit.setAddress(Sc.next());
-            System.out.println("enter city");
-            personToedit.setCity(Sc.next());
-            System.out.println("enter state");
-            personToedit.setState(Sc.next());
-            System.out.println("enter zip code");
-            personToedit.setZip(Sc.next());
-            System.out.println("enter phone number");
-
-            personToedit.setPhoneNumber(Sc.next());
+            addressDetails(personToedit);
+            personToedit.setPhoneNumber(scan.next());
             System.out.println("details updated");
         }
         else{
@@ -95,7 +83,7 @@ public class AddressBookController {
     }
 
     public void deletePerson(){
-        Person personToDelete=this.getPerson();
+        Person personToDelete=this.getPersonDetails();
                 if(personToDelete != null)
                 {
                     this.personList.remove(personToDelete);
@@ -105,31 +93,42 @@ public class AddressBookController {
                     System.out.println("invalid details");
     }
 
-    public void sortByName(){
-        this.personList.sort(Comparator.comparing(Person:: getFirstName));
-    }
-
-    public void sortByCity(){
-        this.personList.sort(Comparator.comparing(Person:: getCity));
-    }
-
-    public void sortByState(){
-        this.personList.sort(Comparator.comparing(Person:: getState));
-    }
-
-    public void sortByZip(){
-        this.personList.sort(Comparator.comparing(Person:: getZip));
-    }
-
-    public void viewByCity(){
-        System.out.println("enter city name");
-        String city=Sc.next();
-        System.out.println(cityMap.get(city));
+    public void sorting() {
+        System.out.println("enter type of sort 1)name 2)city 3)state 4)zipcode");
+        int option = scan.nextInt();
+        switch (option) {
+            case 1: this.personList.sort(Comparator.comparing(Person:: getFirstName));
+                    break;
+            case 2: this.personList.sort(Comparator.comparing(Person:: getCity));
+                    break;
+            case 3: this.personList.sort(Comparator.comparing(Person:: getState));
+                    break;
+            case 4: this.personList.sort(Comparator.comparing(Person:: getZip));
+                    break;
         }
-    public void viewByState(){
-        System.out.println("enter state name");
-        String state=Sc.next();
-        System.out.println(stateMap.get(state));
+    }
 
+    public void viewByCityOrCity() {
+        System.out.println("enter city or state name");
+        String name = scan.next();
+        if (cityMap.containsKey(name)) {
+            System.out.println(cityMap.get(name));
+        } else {
+            System.out.println(stateMap.get(name));
+        }
+    }
+    public void searchByCityOrCity() {
+        System.out.println("enter city or state name");
+        String name = scan.next();
+        for (HashMap.Entry<String, String> pair : cityMap.entrySet()) {
+            if (cityMap.containsKey(name)) {
+                System.out.println(cityMap.get(name));
+            }
+        }
+        for (HashMap.Entry<String, String> pair : stateMap.entrySet()) {
+            if (stateMap.containsKey(name)) {
+                System.out.println(stateMap.get(name));
+            }
+        }
     }
 }

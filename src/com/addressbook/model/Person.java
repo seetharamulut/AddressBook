@@ -9,6 +9,15 @@ public class Person {
     private String zip;
     private String phoneNumber;
 
+    public Person(){
+        this.firstName=firstName;
+        this.lastName=lastName;
+        this.address=address;
+        this.city=city;
+        this.state=state;
+        this.zip=zip;
+        this.phoneNumber=phoneNumber;
+    }
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
